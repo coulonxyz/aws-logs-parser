@@ -1,0 +1,7 @@
+{
+  "region": "eu-central-1",
+  "log_group_name": "/aws/lambda/pft-disclosure-api-development-events",
+  "log_age_limit_in_seconds": 7200,
+  "number_of_log_streams_to_check": 10,
+  "filter_string": "SessionLogs"
+}
