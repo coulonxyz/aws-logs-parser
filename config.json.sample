@@ -1,7 +1,23 @@
 {
-  "region": "eu-central-1",
-  "log_group_name": "/aws/lambda/my_lambda",
-  "log_age_limit_in_seconds": 7200,
-  "number_of_log_streams_to_check": 10,
-  "filter_string": "SessionLogs"
+  "config_env_1": {
+    "region": "eu-central-1",
+    "log_group_name": "/aws/lambda/my-source-lambda",
+    "log_age_limit_in_seconds": 7200,
+    "number_of_log_streams_to_check": 10,
+    "filter_string": "SessionLogs"
+  },
+  "config_env_2": {
+    "region": "eu-central-1",
+    "log_group_name": "/aws/lambda/my-dev-lambda",
+    "log_age_limit_in_seconds": 1800,
+    "number_of_log_streams_to_check": 10,
+    "filter_string": "SessionLogs"
+  },
+  "config_env_3": {
+    "region": "eu-central-1",
+    "log_group_name": "/aws/lambda/my-prod-lambda",
+    "log_age_limit_in_seconds": 60,
+    "number_of_log_streams_to_check": 2,
+    "filter_string": "SessionLogs"
+  }
 }
