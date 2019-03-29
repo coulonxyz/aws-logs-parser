@@ -6,7 +6,6 @@ import json
 from datetime import datetime, timedelta
 import sys
 import getopt
-from pprint import pprint
 
 CRED = '\033[91m'
 CBLUE = '\033[94m'
@@ -18,7 +17,6 @@ class Event:
     def __init__(self, ts, msg):
         self.timestamp = ts
         self.message = msg
-
     pass
 
 
@@ -61,6 +59,14 @@ def get_log_streams(client, log_group_name, log_age_limit):
     return recent_log_streams
 
 
+def is_json(myjson):
+    try:
+        json.loads(myjson)
+    except ValueError, e:
+        return False
+    return True
+
+
 def get_events_to_display(client, log_group_name, log_streams, log_age_limit, filter_string):
     events = []
     for logStream in log_streams:
@@ -69,8 +75,11 @@ def get_events_to_display(client, log_group_name, log_streams, log_age_limit, fi
             logStreamName=logStream['logStreamName'],
             startTime=to_timestamp(datetime.utcnow() - timedelta(seconds=log_age_limit)) * 1000)
         for event in response['events']:
+            print filter_string
+            print event['message']
             if filter_string in event['message'] or filter_string == '*':
-                message_dict = json.loads(event['message'])
+                if is_json(event['message']):
+                    message_dict = json.loads(event['message'])
                 events.append(Event(message_dict['timestamp'], message_dict['message']))
     events.sort(key=lambda x: x.timestamp, reverse=False)
     return events
